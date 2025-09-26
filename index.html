@@ -150,20 +150,8 @@
 
         <div class="schedule-frame">
             <div id="scheduleContainer">
-                <div class="loading-message">
-                    <span class="icon">📋</span>
-                    구글시트 링크를 입력하면<br>
-                    실시간 여행 일정이 표시됩니다!
-                </div>
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2qj41t35kE31wx7XE1HTvDHW0_OmC8nFP06Kzs0nMc__YlHXY-6kxjcOyM2_WpPLSreSxBJYWOWvE/pubhtml?widget=true&headers=false" class="google-sheets-embed"></iframe>
             </div>
-        </div>
-
-        <div class="input-section">
-            <input type="text" 
-                   id="sheetUrl" 
-                   placeholder="구글시트 공유 링크를 입력하세요 (pubhtml 형태)"
-                   value="">
-            <button class="load-button" onclick="loadSheet()">불러오기</button>
         </div>
 
         <div class="tips">
@@ -172,32 +160,6 @@
     </div>
 
     <script>
-        function loadSheet() {
-            const url = document.getElementById('sheetUrl').value.trim();
-            
-            if (!url) {
-                alert('구글시트 링크를 입력해주세요!');
-                return;
-            }
-
-            // 자동으로 pubhtml 형태로 변환
-            let embedUrl = url;
-            if (url.includes('/edit')) {
-                embedUrl = url.replace(/\/edit.*$/, '/pubhtml?widget=true&headers=false');
-            } else if (!url.includes('pubhtml')) {
-                alert('올바른 구글시트 링크가 아닙니다.');
-                return;
-            }
-
-            const iframe = `<iframe src="${embedUrl}" class="google-sheets-embed"></iframe>`;
-            document.getElementById('scheduleContainer').innerHTML = iframe;
-            
-            // 업데이트 시간 표시
-            const now = new Date();
-            document.getElementById('lastUpdate').textContent = 
-                now.toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit'});
-        }
-
         // 페이지 로드 시 현재 시간 표시
         window.onload = function() {
             const now = new Date();
